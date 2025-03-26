@@ -156,7 +156,17 @@ REST_FRAMEWORK = {
 }
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://portfolio-create-front-lq1umg1yd-realmonkeyys-projects.vercel.app'
+]
+if os.getenv('CORS_ALLOWED_ORIGINS'):
+    CORS_ALLOWED_ORIGINS.extend([
+        origin.strip()
+        for origin in os.getenv('CORS_ALLOWED_ORIGINS').split(',')
+        if origin.strip()
+    ])
+
 CORS_ALLOW_CREDENTIALS = True
 
 # CSRF設定
