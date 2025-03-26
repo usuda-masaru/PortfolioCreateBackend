@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn portfolio_backend.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: DATABASE_URL
+        fromDatabase:
+          name: portfolio-db
+          property: connectionString
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://your-frontend-domain.vercel.app
+
+databases:
+  - name: portfolio-db
+    databaseName: portfolio
+    user: portfolio 
