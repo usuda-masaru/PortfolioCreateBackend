@@ -60,7 +60,7 @@ GITHUB_CLIENT_ID = 'Ov231iPhA54U71DtP1j1'  # 本番環境では環境変数か�
 GITHUB_CLIENT_SECRET = '*****09d8d924'  # 本番環境では環境変数から取得する
 
 # フロントエンドのURL（リダイレクト用）
-FRONTEND_URL = 'http://localhost:3000'
+FRONTEND_URL = 'https://portfolio-create-front.vercel.app'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -158,7 +158,7 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'https://portfolio-create-front-lq1umg1yd-realmonkeyys-projects.vercel.app'
+    'https://portfolio-create-front.vercel.app'
 ]
 if os.getenv('CORS_ALLOWED_ORIGINS'):
     CORS_ALLOWED_ORIGINS.extend([
@@ -170,7 +170,7 @@ if os.getenv('CORS_ALLOWED_ORIGINS'):
 CORS_ALLOW_CREDENTIALS = True
 
 # CSRF設定
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+CSRF_TRUSTED_ORIGINS = ['https://portfolio-create-front.vercel.app']
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
