@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import UserProfile, SkillCategory, Skill, Project, Education, WorkExperience, ProcessExperience, GitHubRepository, GitHubCommitStats, QiitaArticle
+from datetime import datetime
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -66,6 +67,32 @@ class EducationSerializer(serializers.ModelSerializer):
         fields = ['id', 'institution', 'degree', 'field_of_study', 
                   'start_date', 'end_date', 'description', 'is_visible']
         read_only_fields = ['id']
+
+    def validate(self, data):
+        """
+        カスタムバリデーション
+        """
+        if data.get('end_date') and data.get('start_date') > data.get('end_date'):
+            raise serializers.ValidationError({
+                'end_date': '終了日は開始日より後である必要があります。'
+            })
+        return data
+
+    def validate_start_date(self, value):
+        """
+        開始日のバリデーション
+        """
+        if value > datetime.now().date():
+            raise serializers.ValidationError('開始日は現在の日付より前である必要があります。')
+        return value
+
+    def validate_end_date(self, value):
+        """
+        終了日のバリデーション
+        """
+        if value and value > datetime.now().date():
+            raise serializers.ValidationError('終了日は現在の日付より前である必要があります。')
+        return value
 
 class WorkExperienceSerializer(serializers.ModelSerializer):
     skills_used_details = SkillSerializer(source='skills_used', many=True, read_only=True)

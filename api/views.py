@@ -182,7 +182,7 @@ class SkillViewSet(viewsets.ModelViewSet):
             return Skill.objects.all()
         try:
             profile = UserProfile.objects.get(user=user)
-            return Skill.objects.filter(profile=profile)
+            return Skill.objects.filter(user=profile)
         except UserProfile.DoesNotExist:
             return Skill.objects.none()
     
