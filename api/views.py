@@ -180,7 +180,11 @@ class SkillViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.is_staff:
             return Skill.objects.all()
-        return Skill.objects.filter(profile__user=user)
+        try:
+            profile = UserProfile.objects.get(user=user)
+            return Skill.objects.filter(profile=profile)
+        except UserProfile.DoesNotExist:
+            return Skill.objects.none()
     
     def perform_create(self, serializer):
         profile, created = UserProfile.objects.get_or_create(

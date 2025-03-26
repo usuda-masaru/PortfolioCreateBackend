@@ -158,19 +158,37 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'https://portfolio-create-front.vercel.app'
+    'https://portfolio-create-front.vercel.app',
+    'https://portfoliocreatebackend.onrender.com'
 ]
-if os.getenv('CORS_ALLOWED_ORIGINS'):
-    CORS_ALLOWED_ORIGINS.extend([
-        origin.strip().rstrip('/')
-        for origin in os.getenv('CORS_ALLOWED_ORIGINS').split(',')
-        if origin.strip()
-    ])
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 # CSRF設定
-CSRF_TRUSTED_ORIGINS = ['https://portfolio-create-front.vercel.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://portfolio-create-front.vercel.app',
+    'https://portfoliocreatebackend.onrender.com'
+]
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
