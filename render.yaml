@@ -1,8 +1,8 @@
 services:
   - type: web
     name: portfolio-backend
-    env: python
-    buildCommand: ./build.sh
+    runtime: python
+    buildCommand: chmod +x build.sh && ./build.sh
     startCommand: gunicorn portfolio_backend.wsgi:application
     envVars:
       - key: PYTHON_VERSION
@@ -14,7 +14,7 @@ services:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DEBUG
-        value: false
+        value: "false"
       - key: ALLOWED_HOSTS
         value: .onrender.com
       - key: CORS_ALLOWED_ORIGINS
