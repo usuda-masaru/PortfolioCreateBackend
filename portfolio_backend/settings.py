@@ -162,7 +162,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 if os.getenv('CORS_ALLOWED_ORIGINS'):
     CORS_ALLOWED_ORIGINS.extend([
-        origin.strip()
+        origin.strip().rstrip('/')
         for origin in os.getenv('CORS_ALLOWED_ORIGINS').split(',')
         if origin.strip()
     ])
