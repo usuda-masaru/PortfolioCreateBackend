@@ -116,7 +116,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         
     @action(detail=False, methods=['get'])
     def me(self, request):
-        """現在ログインしているユーザーのプロフィールを取得"""
         profile, created = UserProfile.objects.get_or_create(
             user=request.user,
             defaults={

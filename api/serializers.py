@@ -64,17 +64,19 @@ class ProjectSerializer(serializers.ModelSerializer):
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
-        fields = ['id', 'institution', 'degree', 'field_of_study', 
-                  'start_date', 'end_date', 'description', 'is_visible']
+        fields = ['id', 'institution', 'start_date', 'end_date', 'description', 'is_visible']
         read_only_fields = ['id']
 
     def validate(self, data):
         """
         カスタムバリデーション
         """
-        if data.get('end_date') and data.get('start_date') > data.get('end_date'):
+        start_date = data.get('start_date')
+        end_date = data.get('end_date')
+        
+        if end_date and start_date and end_date < start_date:
             raise serializers.ValidationError({
-                'end_date': '終了日は開始日より後である必要があります。'
+                'end_date': ['終了日は開始日より後である必要があります。']
             })
         return data
 

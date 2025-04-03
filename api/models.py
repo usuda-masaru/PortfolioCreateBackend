@@ -154,9 +154,7 @@ class Project(models.Model):
 class Education(models.Model):
     """学歴モデル"""
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='education')
-    institution = models.CharField(max_length=200)
-    degree = models.CharField(max_length=200)
-    field_of_study = models.CharField(max_length=200)
+    institution = models.CharField(max_length=200, help_text="学校名（学科）")
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True)
@@ -167,7 +165,7 @@ class Education(models.Model):
         verbose_name_plural = "Education"
     
     def __str__(self):
-        return f"{self.degree} - {self.institution}"
+        return self.institution
 
 class WorkExperience(models.Model):
     """職歴モデル"""

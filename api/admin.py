@@ -30,9 +30,10 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
-    list_display = ('institution', 'degree', 'field_of_study', 'user', 'start_date', 'end_date')
-    list_filter = ('start_date', 'end_date')
-    search_fields = ('institution', 'degree', 'field_of_study', 'user__display_name')
+    list_display = ('institution', 'start_date', 'end_date', 'is_visible')
+    list_filter = ('is_visible',)
+    search_fields = ('institution', 'description')
+    ordering = ('-end_date', '-start_date')
 
 @admin.register(WorkExperience)
 class WorkExperienceAdmin(admin.ModelAdmin):
